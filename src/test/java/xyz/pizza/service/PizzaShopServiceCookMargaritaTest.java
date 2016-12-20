@@ -25,9 +25,6 @@ public class PizzaShopServiceCookMargaritaTest {
         Pizza pizza = pizzaOpt.get();
 
         Assert.assertEquals(2, pizza.getIngredients().size());
-
-        // TODO: add list verification
-        // validate that the pizzaOpt has only Tomatoes and Mozzarella
     }
 
     @Test
@@ -43,23 +40,6 @@ public class PizzaShopServiceCookMargaritaTest {
         Ingredient[] margaritaIngredients = {new Tomatoes(), new Mozzarella()};
 
         Assert.assertArrayEquals(margaritaIngredients, pizza.getIngredients().toArray());
-
-    }
-
-    @Test
-    public void createMargaritaWithProperIngredients_NotInTheSameOrder() throws Exception {
-        Optional<Pizza> pizzaOpt = PizzaShopService.orderPizza(PizzaType.Margarita);
-        Assert.assertTrue(pizzaOpt.isPresent());
-
-        Pizza pizza = pizzaOpt.get();
-        Assert.assertEquals(2, pizza.getIngredients().size());
-        // TODO: add list verification
-        // validate that the pizza has only Tomatoes and Mozzarella
-
-        Ingredient[] margaritaIngredients = {new Tomatoes(), new Mozzarella()};
-
-//        ???
-//        Assert.assertArrayEquals(margaritaIngredients, pizza.getIngredients().toArray());
 
     }
 
