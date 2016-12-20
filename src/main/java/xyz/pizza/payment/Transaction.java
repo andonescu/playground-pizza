@@ -18,4 +18,16 @@ public class Transaction {
         this.amount = amount;
         this.order = order;
     }
+
+    public CreditCard getCreditCard() {
+        return creditCard;
+    }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public List<Pizza> getOrder() {
+        return order;
+    }
 }

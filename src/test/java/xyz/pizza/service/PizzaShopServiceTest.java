@@ -1,87 +1,118 @@
 package xyz.pizza.service;
 
-import xyz.pizza.entity.Pizza;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
+
 import xyz.pizza.entity.ingredients.Ingredient;
 import xyz.pizza.entity.ingredients.cheese.Mozzarella;
 import xyz.pizza.entity.ingredients.meat.Ham;
 import xyz.pizza.entity.ingredients.meat.Salami;
 import xyz.pizza.entity.ingredients.meat.Sausage;
 import xyz.pizza.entity.ingredients.meat.SpicyBeef;
+import xyz.pizza.entity.ingredients.veggie.Mushrooms;
+import xyz.pizza.entity.ingredients.veggie.Peppers;
+import xyz.pizza.entity.ingredients.veggie.Sweetcorn;
 import xyz.pizza.entity.ingredients.veggie.Tomatoes;
-import org.junit.Assert;
-import xyz.pizza.service.PizzaShopService;
-
-import java.util.Arrays;
-import java.util.List;
+import xyz.pizza.payment.CreditCard;
+import xyz.pizza.payment.Transaction;
 
 public class PizzaShopServiceTest {
 
-    @org.junit.Test
-    public void createPizza() throws Exception {
+    @Test
+    public void orderPizzaWithoutCreditCard() throws Exception {
         List<Ingredient> ingredients = Arrays.asList(
                 new Tomatoes(),
                 new Mozzarella()
         );
 
-        Pizza pizza = new PizzaShopService().orderPizza(ingredients);
+        Optional<Transaction> transaction = PizzaShopService.orderPizza(ingredients, null);
 
-        Assert.assertNotNull(pizza);
+        Assert.assertTrue(!transaction.isPresent());
     }
 
-    @org.junit.Test
+    @Test
+    @Ignore("nice to have")
     public void orderTheSameIngredientsUsedInMargarita() throws Exception {
         String margaritaName = "Margarita";
         List<Ingredient> ingredients = Arrays.asList(
                 new Tomatoes(),
                 new Mozzarella()
         );
+        CreditCard creditCardWithMoney = new CreditCard();
 
-        Pizza pizza = new PizzaShopService().orderPizza(ingredients);
+        Optional<Transaction> transactionOpt = PizzaShopService.orderPizza(ingredients, creditCardWithMoney);
 
-        Assert.assertNotNull(pizza);
-        Assert.assertEquals(margaritaName, pizza.getName());
+        Assert.assertTrue(transactionOpt.isPresent());
+
+        Transaction transaction = transactionOpt.get();
+
+        Assert.assertEquals(1, transaction.getOrder().size());
+        Assert.assertEquals(margaritaName, transaction.getOrder().get(0).getName());
     }
 
-    @org.junit.Test
+    @Test
+    @Ignore
     public void orderTheSameIngredientsUsedInMeatFeast() throws Exception {
         String meatFestName = "Meat Feast";
         List<Ingredient> ingredients = Arrays.asList(
                 new Ham(), new Salami(), new Sausage(), new SpicyBeef()
         );
+        CreditCard creditCardWithMoney = new CreditCard();
 
-        Pizza pizza = new PizzaShopService().orderPizza(ingredients);
+        Optional<Transaction> transactionOpt = PizzaShopService.orderPizza(ingredients, creditCardWithMoney);
 
-        Assert.assertNotNull(pizza);
-        Assert.assertEquals(meatFestName, pizza.getName());
+        Assert.assertTrue(transactionOpt.isPresent());
+
+        Transaction transaction = transactionOpt.get();
+
+        Assert.assertEquals(1, transaction.getOrder().size());
+        Assert.assertEquals(meatFestName, transaction.getOrder().get(0).getName());
     }
 
-
-    @org.junit.Test
+    @Test
+    @Ignore
     public void orderTheSameIngredientsUsedInVeggieFeast() throws Exception {
         String veggieFestName = "VeggieFeast";
         List<Ingredient> ingredients = Arrays.asList(
-                new Tomatoes(),
-                new Mozzarella()
+                new Mushrooms(),
+                new Peppers(),
+                new Sweetcorn(),
+                new Tomatoes()
         );
+        CreditCard creditCardWithMoney = new CreditCard();
 
-        Pizza pizza = new PizzaShopService().orderPizza(ingredients);
+        Optional<Transaction> transactionOpt = PizzaShopService.orderPizza(ingredients, creditCardWithMoney);
 
-        Assert.assertNotNull(pizza);
-        Assert.assertEquals(veggieFestName, pizza.getName());
+        Assert.assertTrue(transactionOpt.isPresent());
+
+        Transaction transaction = transactionOpt.get();
+
+        Assert.assertEquals(1, transaction.getOrder().size());
+        Assert.assertEquals(veggieFestName, transaction.getOrder().get(0).getName());
     }
 
-    @org.junit.Test
+    @Test
     public void ordersCustomPizza() throws Exception {
         String pizzaName = "Custom";
         List<Ingredient> ingredients = Arrays.asList(
                 new Tomatoes(),
                 new Mozzarella()
         );
+        CreditCard creditCardWithMoney = new CreditCard();
 
-        Pizza pizza = new PizzaShopService().orderPizza(ingredients);
+        Optional<Transaction> transactionOpt = PizzaShopService.orderPizza(ingredients, creditCardWithMoney);
 
-        Assert.assertNotNull(pizza);
-        Assert.assertEquals(pizzaName, pizza.getName());
+        Assert.assertTrue(transactionOpt.isPresent());
+
+        Transaction transaction = transactionOpt.get();
+
+        Assert.assertEquals(1, transaction.getOrder().size());
+        Assert.assertEquals(pizzaName, transaction.getOrder().get(0).getName());
     }
 
 }

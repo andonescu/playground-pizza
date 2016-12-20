@@ -19,8 +19,20 @@ public class PizzaShopService {
      * order {@link xyz.pizza.entity.Pizza} by a {@link java.util.List} of
      * {@link xyz.pizza.entity.ingredients.Ingredient}s
      */
-    public static Pizza orderPizza(List<Ingredient> ingredients) {
-        return new Pizza(ingredients, PizzaType.Custom.getDesc());
+    public static Optional<Transaction> orderPizza(List<Ingredient> ingredients, CreditCard card) {
+
+        if (!Optional.ofNullable(card).isPresent()) {
+
+            // you cannot buy without a credit card
+            return Optional.empty();
+        }
+
+        return
+                Optional.of(new Transaction(
+                        card,
+                        Pizza.PRICE,
+                        Arrays.asList(new Pizza(ingredients, PizzaType.Custom.getDesc()))
+                ));
     }
 
     /**
