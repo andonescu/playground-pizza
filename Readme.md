@@ -30,3 +30,7 @@ Veggie Feast – All veggies
 Cheese Feast – All cheeses
  
 Can you create a solutions that models the pizza shop.
+
+A customer should be able to order any number of pizzas and pay for them.
+The customer can create a custom pizza and pay for it
+The customer should be able to use a discount code
