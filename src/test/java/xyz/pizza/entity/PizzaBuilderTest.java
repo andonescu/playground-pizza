@@ -2,6 +2,7 @@ package xyz.pizza.entity;
 
 import org.junit.Assert;
 import org.junit.Test;
+
 import xyz.pizza.entity.ingredients.Ingredient;
 import xyz.pizza.entity.ingredients.cheese.Mozzarella;
 import xyz.pizza.entity.ingredients.meat.Ham;
@@ -11,20 +12,6 @@ import xyz.pizza.entity.ingredients.meat.SpicyBeef;
 import xyz.pizza.entity.ingredients.veggie.Tomatoes;
 
 public class PizzaBuilderTest {
-
-    @Test
-    public void cookMargaritaTest() throws Exception {
-        Pizza pizza = PizzaBuilder.cookMargarita();
-
-        testMargaritaPizza(pizza);
-    }
-
-    @Test
-    public void coolMeatFeastTest() throws Exception {
-        Pizza pizza = PizzaBuilder.cookMeatFeast();
-
-        testMeatFeastPizza(pizza);
-    }
 
     @Test
     public void createPizzaByTypeTest_Margarita() {
@@ -45,7 +32,7 @@ public class PizzaBuilderTest {
 
         Assert.assertEquals(2, pizza.getIngredients().size());
 
-        Ingredient[] margaritaIngredients = {new Tomatoes(), new Mozzarella()};
+        Ingredient[] margaritaIngredients = { new Tomatoes(), new Mozzarella() };
 
         Assert.assertArrayEquals(margaritaIngredients, pizza.getIngredients().toArray());
     }
@@ -55,7 +42,7 @@ public class PizzaBuilderTest {
 
         Assert.assertEquals(4, pizza.getIngredients().size());
 
-        Ingredient[] margaritaIngredients = {new Ham(), new Salami(), new Sausage(), new SpicyBeef()};
+        Ingredient[] margaritaIngredients = { new Ham(), new Salami(), new Sausage(), new SpicyBeef() };
 
         Assert.assertArrayEquals(margaritaIngredients, pizza.getIngredients().toArray());
     }

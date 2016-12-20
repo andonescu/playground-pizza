@@ -44,13 +44,7 @@ public class PizzaShopService {
      * </ul>
      */
     public static Optional<Pizza> orderPizza(PizzaType type) {
-
-        switch (type) {
-            case Margarita:
-                return Optional.of(PizzaBuilder.cookMargarita());
-            default:
-                return Optional.empty();
-        }
+        return Optional.ofNullable(type).map(PizzaBuilder::createPizzaByType);
     }
 
     /**

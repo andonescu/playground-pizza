@@ -18,7 +18,7 @@ public class PizzaShopServiceCookMargaritaTest {
     @Test
     public void createMargarita() throws Exception {
 
-        Optional<Pizza> pizzaOpt = new PizzaShopService().orderPizza(PizzaType.Margarita);
+        Optional<Pizza> pizzaOpt = PizzaShopService.orderPizza(PizzaType.Margarita);
 
         Assert.assertTrue(pizzaOpt.isPresent());
 
@@ -32,7 +32,7 @@ public class PizzaShopServiceCookMargaritaTest {
 
     @Test
     public void createMargaritaWithProperIngredients() throws Exception {
-        Optional<Pizza> pizzaOpt = new PizzaShopService().orderPizza(PizzaType.Margarita);
+        Optional<Pizza> pizzaOpt = PizzaShopService.orderPizza(PizzaType.Margarita);
         Assert.assertTrue(pizzaOpt.isPresent());
 
         Pizza pizza = pizzaOpt.get();
@@ -48,7 +48,7 @@ public class PizzaShopServiceCookMargaritaTest {
 
     @Test
     public void createMargaritaWithProperIngredients_NotInTheSameOrder() throws Exception {
-        Optional<Pizza> pizzaOpt = new PizzaShopService().orderPizza(PizzaType.Margarita);
+        Optional<Pizza> pizzaOpt = PizzaShopService.orderPizza(PizzaType.Margarita);
         Assert.assertTrue(pizzaOpt.isPresent());
 
         Pizza pizza = pizzaOpt.get();
@@ -65,7 +65,7 @@ public class PizzaShopServiceCookMargaritaTest {
 
     @Test
     public void tryToCreateUnknownPizza() {
-        Optional<Pizza> pizzaOpt = new PizzaShopService().orderPizza(PizzaType.Custom);
+        Optional<Pizza> pizzaOpt = PizzaShopService.orderPizza(PizzaType.Custom);
         Assert.assertFalse(pizzaOpt.isPresent());
     }
 

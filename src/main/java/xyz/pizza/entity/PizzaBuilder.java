@@ -11,13 +11,13 @@ import java.util.Arrays;
 
 public class PizzaBuilder {
 
-    public static Pizza cookMargarita() {
+    private static Pizza cookMargarita() {
         return new Pizza(
                 Arrays.asList(new Tomatoes(), new Mozzarella()),
                 "Margarita");
     }
 
-    public static Pizza cookMeatFeast() {
+    private static Pizza cookMeatFeast() {
         return new Pizza(
                 Arrays.asList(new Ham(), new Salami(), new Sausage(), new SpicyBeef()),
                 "Meat Feast");
