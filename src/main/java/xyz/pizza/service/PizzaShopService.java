@@ -36,15 +36,16 @@ public class PizzaShopService {
     }
 
     /**
-     * order {@link xyz.pizza.entity.Pizza} by a {@link xyz.pizza.entity.PizzaType}
+     * order a {@link xyz.pizza.entity.Pizza} by a {@link xyz.pizza.entity.PizzaType}
      * <br/>
      * available options:
      * <ul>
      * <li>{@link xyz.pizza.entity.PizzaType#Margarita}</li>
+     * <li>{@link xyz.pizza.entity.PizzaType#MeatFeast}</li>
      * </ul>
      */
-    public static Optional<Pizza> orderPizza(PizzaType type) {
-        return Optional.ofNullable(type).map(PizzaBuilder::createPizzaByType);
+    public static Optional<Transaction> orderPizza(PizzaType type, CreditCard card) {
+        return orderPizzas(type, 1, card);
     }
 
     /**
