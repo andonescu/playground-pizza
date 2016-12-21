@@ -1,6 +1,5 @@
 package xyz.pizza.service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,11 +27,13 @@ public class PizzaShopService {
         }
 
         return
-                Optional.of(new Transaction(
-                        card,
-                        Pizza.PRICE,
-                        Arrays.asList(new Pizza(ingredients, PizzaType.Custom.getDesc()))
-                ));
+                FinancialService.chargeForPizza(1, Pizza.PRICE).map(price ->
+                        new Transaction(
+                                card,
+                                price,
+                                Arrays.asList(new Pizza(ingredients, PizzaType.Custom.getDesc()))
+                        )
+                );
     }
 
     /**
@@ -67,11 +68,13 @@ public class PizzaShopService {
                 .count();
 
         if (validInputNum == 3) {
-            return checkPizzaNumberToCook(number).map(validatedNumber ->
-                    new Transaction(
-                            card,
-                            Pizza.PRICE.multiply(new BigDecimal(validatedNumber)),
-                            createPizzaBy(type, validatedNumber)
+            return checkPizzaNumberToCook(number).flatMap(validatedNumber ->
+                    FinancialService.chargeForPizza(validatedNumber, Pizza.PRICE).map(price ->
+                            new Transaction(
+                                    card,
+                                    price,
+                                    createPizzaBy(type, validatedNumber)
+                            )
                     )
 
             );
