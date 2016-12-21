@@ -1,11 +1,13 @@
 package xyz.pizza.service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import xyz.pizza.entity.Pizza;
 import xyz.pizza.entity.PizzaType;
 import xyz.pizza.payment.CreditCard;
 import xyz.pizza.payment.Transaction;
@@ -17,6 +19,16 @@ public class PizzaShopServiceChargeMultiplePizzasTest {
         Optional<Transaction> transactionOpt = orderMargarita(1);
 
         Assert.assertTrue(transactionOpt.isPresent());
+    }
+
+    @Test
+    public void orderThreePizzaForTheRightAmount() throws Exception {
+        Integer numOfPizza = 3;
+        Optional<Transaction> transactionOpt = orderMargarita(numOfPizza);
+
+        Assert.assertTrue(transactionOpt.isPresent());
+
+        Assert.assertEquals(Pizza.PRICE.multiply(new BigDecimal(numOfPizza)), transactionOpt.get().getAmount());
     }
 
     @Test
